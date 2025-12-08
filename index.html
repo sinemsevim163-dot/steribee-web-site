@@ -9,13 +9,13 @@
 
     <style>
         :root {
-            /* Dinamik Arka Plan Değişkenleri */
-            --strip-color: rgba(30, 30, 30, 0.5);
-            --glow-color: #ffaa00; /* Sarı-turuncu parlama rengi */
+            /* Arka Plan Değişkenleri */
+            --strip-color: rgba(30, 30, 30, 0.5); /* Koyu şeritler için */
             --strip-width: 4px;
             --strip-spacing: 4px;
             --text-color: white;
-            --glow-container-size: 200px; /* Parlama alanını büyüttük */
+            /* Ana arkaplanın koyu turkuaz tonuna yakın bir değer */
+            --main-bg-color: #0b1c20; 
         }
 
         body {
@@ -23,14 +23,15 @@
             padding: 0;
             font-family: Arial, sans-serif;
             color: var(--text-color);
-            background: radial-gradient(circle at center, #0d2a2e, #081b20, #051216);
+            /* Görselinizdeki koyu turkuaz tonunu yakalamak için gradient güncellendi */
+            background: radial-gradient(circle at center, #103038, #081b20, #051216);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
         }
 
         /* ================================================= */
-        /* DINAMIK ARKA PLAN KATMANI (GÜNCELLENDİ)           */
+        /* DINAMIK ARKA PLAN KATMANI (SADECE ÇİZGİLER)      */
         /* ================================================= */
         .dynamic-background {
             position: absolute;
@@ -50,65 +51,13 @@
                 transparent var(--strip-width),
                 transparent calc(var(--strip-width) + var(--strip-spacing))
             );
-            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.4);
+            /* Şeritlerin ortada daha belirgin görünmesi için gölge */
+            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
         }
 
-        /* Köşe Parlama Kapsayıcısı */
-        .glow-corner {
-            position: absolute;
-            width: var(--glow-container-size);
-            height: var(--glow-container-size);
-            overflow: hidden; /* Parlamanın sadece kenarda görünmesi için */
-        }
-        
-        /* Köşe Konumlandırmaları */
-        .top-left {
-            top: -50px; /* Köşeye daha yakın */
-            left: -50px;
-        }
-
-        .bottom-right {
-            bottom: -50px;
-            right: -50px;
-        }
-
-        /* Parlak Işık Efekti (Dairesel Gradien) */
-        .glow-effect {
-            position: absolute;
-            width: 250%; /* Parlamanın büyük olması için */
-            height: 250%;
-            background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 60%);
-            opacity: 0.6;
-            filter: blur(25px); /* Daha yumuşak parlama */
-            
-            top: -75%;
-            left: -75%;
-            
-            /* Animasyonu uygula */
-            animation: moveGlow 10s linear infinite alternate;
-        }
-
-        /* Işığın Köşede Gezinme Animasyonu */
-        @keyframes moveGlow {
-            0% { transform: translate(0%, 0%); }
-            25% { transform: translate(50%, 0%); }
-            50% { transform: translate(50%, 50%); }
-            75% { transform: translate(0%, 50%); }
-            100% { transform: translate(0%, 0%); }
-        }
-        
-        /* Top-Left Köşe için Ters Yön Animasyonu */
-        .top-left .glow-effect {
-            animation-direction: normal;
-        }
-
-        /* Bottom-Right Köşe için Ters Yön Animasyonu */
-        .bottom-right .glow-effect {
-            animation-direction: reverse;
-        }
-        
+        /* KULLANILMAYAN PARLAMA STİLLERİ VE HTML YAPISI KALDIRILDI */
         /* ================================================= */
-        /* STERIBEE BAŞLIK PARLAMA ANİMASYONU                */
+        /* STERIBEE BAŞLIK PARLAMA ANİMASYONU (SÜREKLİ YANAN)*/
         /* ================================================= */
         
         .hero-text h1 {
@@ -120,41 +69,42 @@
         .shimmer-text {
             /* Başlık container'ı */
             display: inline-block;
-            font-size: 60px; /* Steribee yazısını büyüttük */
+            font-size: 60px;
             font-weight: 900;
             color: var(--text-color);
             position: relative;
+            
+            /* Görseldeki gibi sürekli yanan parlaklık efekti */
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8), /* Güçlü beyaz parlama */
+                0 0 20px rgba(255, 255, 255, 0.4); /* Hafif yayılım */
+                
+            /* Sağdan sola ilerleyen animasyon (shimmer) korundu */
             overflow: hidden;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Hafif kalıcı parlama */
         }
-
+        
+        /* Shimmer (sağdan sola hızlı parlama) efektinin CSS'i */
         .shimmer-text::after {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: -100%; 
             width: 50%;
             height: 100%;
             background: linear-gradient(
                 90deg, 
                 transparent, 
-                rgba(255, 255, 255, 0.8), 
+                rgba(255, 255, 255, 0.6), /* Parlaklık yoğunluğu azaldı */
                 transparent
             );
             transform: skewX(-20deg); 
-            animation: shimmerEffect 3s infinite 1s;
+            animation: shimmerEffect 3s infinite 2s; /* Daha seyrek ve uzun animasyon */
         }
 
         @keyframes shimmerEffect {
-            0% {
-                left: -100%;
-            }
-            10% {
-                left: 100%;
-            }
-            100% {
-                left: 100%;
-            }
+            0% { left: -100%; }
+            10% { left: 100%; }
+            100% { left: 100%; }
         }
         
         /* ================================================= */
@@ -167,15 +117,33 @@
             left: 50%;
             transform: translateX(-50%);
             padding: 12px 32px;
-            background: rgba(255, 255, 255, 0.12);
+            /* Görseldeki gibi biraz daha opak ve köşeli bir görünüm */
+            background: rgba(255, 255, 255, 0.15); 
             border-radius: 50px;
             backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             gap: 28px;
             z-index: 999;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
+        
+        .header-container button:last-child {
+            /* "Hakkımızda" butonu için görseldeki dolgulu stili uyguluyoruz */
+            background: var(--text-color);
+            color: #0d2a2e; /* Koyu metin rengi */
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .header-container button:last-child:hover {
+            background: #e0e0e0;
+            color: #051216;
+            opacity: 1;
+        }
+
 
         .header-container img.logo {
             height: 50px;
@@ -193,7 +161,7 @@
             transition: color 0.3s, opacity 0.3s;
         }
 
-        .header-container button:hover {
+        .header-container button:hover:not(:last-child) {
             opacity: 0.8;
         }
 
@@ -219,6 +187,7 @@
             font-size: 18px;
             line-height: 1.5;
             max-width: 90%;
+            color: #ccc; /* Metin için hafif gri tonu */
         }
 
         .hero-image img {
@@ -243,13 +212,15 @@
         }
 
         .card {
-            background: #a5f4ff;
+            /* Görseldeki gibi mavi/turkuaz kartlar */
+            background: #a5f4ff; 
             color: #033038;
             padding: 28px;
             border-radius: 28px;
             width: 50%;
             transition: all 0.25s ease;
             filter: brightness(0.92);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .card:hover {
@@ -259,7 +230,7 @@
 
         /* FOOTER STİLİ */
         .footer {
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: rgba(0, 0, 0, 0.4);
             color: #a0a0a0;
             text-align: center;
             padding: 20px 0;
@@ -268,11 +239,6 @@
             border-top: 1px solid #1a1a1a;
             width: 100%;
             box-sizing: border-box;
-        }
-
-        .footer p {
-            margin: 0;
-            padding: 0 20px;
         }
 
         /* ===== RESPONSIVE ===== */
@@ -289,7 +255,7 @@
                 width: 100%;
             }
             .shimmer-text {
-                font-size: 40px; /* Mobil için küçültüldü */
+                font-size: 40px;
             }
 
             .feature-cards {
@@ -299,7 +265,7 @@
             .card {
                 width: 100%;
             }
-
+            /* Mobil header düzenlemeleri */
             .header-container {
                 width: 90%;
                 gap: 15px;
@@ -318,14 +284,6 @@
 <body>
 
 <div class="dynamic-background">
-    <div class="glow-corner top-left">
-        <div class="glow-effect"></div>
-    </div>
-
-    <div class="glow-corner bottom-right">
-        <div class="glow-effect"></div>
-    </div>
-
     <div class="center-vignette"></div>
 </div>
 
@@ -396,7 +354,3 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABGAAAAOgCAYAAAByQQCTAAAQAElEQVR4Ae
 
 </body>
 </html>
-
-</body>
-</html>
-
