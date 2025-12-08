@@ -43,16 +43,8 @@
             z-index: -1;
             overflow: hidden;
 
-            /* Dikey Şeritler */
-            background: repeating-linear-gradient(
-                90deg,
-                var(--strip-color),
-                var(--strip-color) var(--strip-width),
-                transparent var(--strip-width),
-                transparent calc(var(--strip-width) + var(--strip-spacing))
-            );
-            /* Şeritlerin ortada daha belirgin görünmesi için gölge */
-            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
+        
+           
         }
 
         /* KULLANILMAYAN PARLAMA STİLLERİ VE HTML YAPISI KALDIRILDI */
@@ -129,13 +121,9 @@
         
         .header-container button:last-child {
             /* "Hakkımızda" butonu için görseldeki dolgulu stili uyguluyoruz */
-            background: var(--text-color);
-            color: #0d2a2e; /* Koyu metin rengi */
-            border-radius: 30px;
-            padding: 8px 18px;
-            font-weight: bold;
-            transition: background 0.3s, color 0.3s;
-        }
+            
+            color: white; /* Koyu metin rengi */
+           
 
         .header-container button:last-child:hover {
             background: #e0e0e0;
@@ -353,4 +341,5 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABGAAAAOgCAYAAAByQQCTAAAQAElEQVR4Ae
 
 </body>
 </html>
+
 
