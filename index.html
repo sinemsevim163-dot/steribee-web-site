@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+
+<link rel="icon" type="image/svg+xml" href="steribeelogo.svg">
+
+<style>
+  /* Menüdeki logonun parlaması için */
+  header img, .navbar-brand img, img[src*="steribeelogo.svg"] {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+    transition: filter 0.3s ease;
+  }
+
+  /* Mouse ile üzerine gelince parlama artsın istersen */
+  header img:hover, img[src*="steribeelogo.svg"]:hover {
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8)); /* Hafif sarımsı bee parlaması */
+  }
+
+  /* Vizyon kutularını (Biyo-analiz vb.) aşağı kaydırmak için */
+  .vizyon-konteyner { 
+    transform: translateY(40px);
+  }
+</style>
+    
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steribee</title>
@@ -295,6 +317,7 @@
     </script>
 </body>
 </html>
+
 
 
 
